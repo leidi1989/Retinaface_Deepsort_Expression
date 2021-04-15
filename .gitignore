@@ -1,0 +1,6 @@
+!.gitkeep
+
+.vscode/*
+face_expression/weight/*
+weights/*
+*.mp4
