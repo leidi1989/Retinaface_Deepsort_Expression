@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-04-16 10:06:04
+LastEditTime: 2021-04-16 11:46:33
 '''
 from __future__ import print_function
 import torch
@@ -339,19 +339,20 @@ def test(im, face_detect_weight_path, face_expression_weight_path):
         face_detect_weight_path, face_expression_weight_path)
 
     while True:
+        _, im = cap.read()
         if 0 == len(im):
             break
         im = cv2.resize(im, (640, 480))
         result_boxes, Face_info_list = det.detect_expression(im)
         # 图像输出
-        # im = cv2.resize(im, (640, 480))
-        # result_image = plot_face_bbox(im, Face_info_list)
-        # cv2.imshow(name, result_image)
-        # cv2.waitKey(1)
+        im = cv2.resize(im, (640, 480))
+        result_image = plot_face_bbox(im, Face_info_list)
+        cv2.imshow(name, result_image)
+        cv2.waitKey(1)
 
-        # if cv2.getWindowProperty(name, cv2.WND_PROP_AUTOSIZE) < 1:
-        #     # 点x退出
-        #     return
+        if cv2.getWindowProperty(name, cv2.WND_PROP_AUTOSIZE) < 1:
+            # 点x退出
+            return
         # 无图像输出
         print(result_boxes)
         print(Face_info_list)
@@ -362,9 +363,9 @@ if __name__ == '__main__':
     # Face_Detect_backbone_weights = r'weights/Resnet50_Final.pth'
     face_detect_weight_path = r'weights/Resnet50_Final.pth'
     face_expression_weight_path = r'face_expression/weight/PrivateTest_model.t7'
-    cap = cv2.VideoCapture(
-        r'WIN_20210308_15_32_55_Pro.mp4')
-    # cap = cv2.VideoCapture(0)
+    # cap = cv2.VideoCapture(
+    #     r'WIN_20210308_15_32_55_Pro.mp4')
+    cap = cv2.VideoCapture(0)
     name = 'demo'
 
     _, im = cap.read()
