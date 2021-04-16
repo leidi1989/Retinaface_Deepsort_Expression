@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-04-15 14:39:39
+LastEditTime: 2021-04-16 10:06:04
 '''
 from __future__ import print_function
 import torch
@@ -339,7 +339,6 @@ def test(im, face_detect_weight_path, face_expression_weight_path):
         face_detect_weight_path, face_expression_weight_path)
 
     while True:
-        _, im = cap.read()
         if 0 == len(im):
             break
         im = cv2.resize(im, (640, 480))
