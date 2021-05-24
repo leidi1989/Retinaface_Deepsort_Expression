@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-05-24 10:58:36
+LastEditTime: 2021-05-24 12:00:54
 '''
 from __future__ import print_function
 import torch
@@ -369,11 +369,11 @@ if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     name = 'demo'
 
-    # _, im = cap.read()
+    _, im = cap.read()
 
     time_star = time.time()
-
-    im = cv2.imread(r'/home/leidi/Desktop/OIP.CpJ_yO0mo7S-Vn_kNdL0cgHaHa.jpeg')
+    # 添加图片检测
+    # im = cv2.imread(r'/home/leidi/Desktop/OIP.CpJ_yO0mo7S-Vn_kNdL0cgHaHa.jpeg')
     test(im, face_detect_weight_path, face_expression_weight_path)
 
     print('Total time: {:.4f}'.format(time.time() - time_star))
