@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-11 15:34:15
 LastEditors: Leidi
-LastEditTime: 2021-05-24 10:23:20
+LastEditTime: 2021-05-24 10:27:39
 '''
 import numpy as np
 from PIL import Image
@@ -72,6 +72,8 @@ class Face_Expression():
 
             print('Expression bef process time: {:.4f}'.format(
                 bef_process_time_end - bef_process_time_start))
-
+            
+            print('Expression total time: {:.4f}'.format(
+                bef_process_time_end - start_total))
             # print(score)
         return score.cpu().detach().numpy().tolist()

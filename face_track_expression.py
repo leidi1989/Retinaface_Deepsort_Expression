@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-05-24 10:22:47
+LastEditTime: 2021-05-24 10:26:33
 '''
 from __future__ import print_function
 import torch
@@ -342,7 +342,7 @@ def test(im, face_detect_weight_path, face_expression_weight_path):
         if 0 == len(im):
             break
         im = cv2.resize(im, (640, 480))
-        result_boxes, Face_info_list = det.detect_expression(im)
+        _, Face_info_list = det.detect_expression(im)
         # 图像输出
         im = cv2.resize(im, (640, 480))
         result_image = plot_face_bbox(im, Face_info_list)

@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 10:09:34
 LastEditors: Leidi
-LastEditTime: 2021-03-15 11:35:48
+LastEditTime: 2021-05-24 10:52:22
 '''
 from deep_sort.utils.parser import get_config
 from deep_sort.deep_sort import DeepSort
@@ -76,5 +76,16 @@ def update_tracker(target_detector, image):
             #     )
 
         # image = plot_bboxes(image, bboxes2draw)
-
+        
         return image, outputs
+    
+        # else:
+        #     return image, outputs
+
+        # if len(outputs):
+        #     return image, outputs
+        # else:
+        #     outputs = []
+        #     for one in bboxes:
+        #         outputs.append(list(map(int, one[0:4])))
+        #     return image, outputs
