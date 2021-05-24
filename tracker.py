@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 10:09:34
 LastEditors: Leidi
-LastEditTime: 2021-05-24 10:58:43
+LastEditTime: 2021-05-24 11:05:48
 '''
 from deep_sort.utils.parser import get_config
 from deep_sort.deep_sort import DeepSort
@@ -79,6 +79,7 @@ def update_tracker(target_detector, image):
 
     return image, outputs
 
+    # 若设置跳过前两帧导致ID混乱
     # else:
     #     return image, outputs
 
