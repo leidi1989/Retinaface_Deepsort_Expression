@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-05-21 11:28:45
+LastEditTime: 2021-05-24 10:22:47
 '''
 from __future__ import print_function
 import torch
@@ -265,8 +265,8 @@ class Face_Detect(baseDet):
         keep = py_cpu_nms(dets, nms_threshold)
         # keep = nms(dets, args.nms_threshold,force_cpu=args.cpu)
         dets = dets[keep, :]
-        for one in dets:
-            print('confidence:', one[4])
+        # for one in dets:
+        #     print('detect face confidence:', one[4])
 
         landms = landms[keep]
 
@@ -306,11 +306,10 @@ class Face_detect_experssion():
             result_boxes ([list]): [人脸检测框,左上点和右下点坐标及ID]
             Face_info_list ([list]): [人脸信息表情置信度字典列表]
         """
+        print('\n')
         print('*'*50)
         result_boxes = {}
         Face_info_list = []
-        # TODO
-        # im = cv2.resize(im, (640, 480))
         if im is None:
             return result_boxes, Face_info_list
         
@@ -326,7 +325,7 @@ class Face_detect_experssion():
                 Face_info_list.append(Face_info(one_face_img, face_expression))
 
         for one_face in Face_info_list:
-            print('ID: {},\nexpression list: {},\nboxes: {}'.format(
+            print('\nID: {},\nexpression list: {},\nboxes: {}'.format(
                 one_face.id, one_face.expression, one_face.bbox[0:4]))
         print('*'*50)
 
@@ -354,8 +353,8 @@ def test(im, face_detect_weight_path, face_expression_weight_path):
             # 点x退出
             return
         # 无图像输出
-        print(result_boxes)
-        print(Face_info_list)
+        # print(result_boxes)
+        # print(Face_info_list)
 
 
 if __name__ == '__main__':

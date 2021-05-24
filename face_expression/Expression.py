@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-11 15:34:15
 LastEditors: Leidi
-LastEditTime: 2021-04-09 14:56:41
+LastEditTime: 2021-05-24 10:23:20
 '''
 import numpy as np
 from PIL import Image
@@ -36,10 +36,10 @@ class Face_Expression():
         return np.dot(rgb[..., :3], [0.114, 0.587, 0.299])
 
     def detect(self, image):
-        
+
         # if len(image):
         start_total = time.time()
-        
+
         gray = self.bgr2gray(image)
         gray = resize(gray, (48, 48), mode='symmetric').astype(np.uint8)
         img = gray[:, :, np.newaxis]
@@ -49,27 +49,29 @@ class Face_Expression():
         ncrops, c, h, w = np.shape(inputs)
         inputs = inputs.view(-1, c, h, w)
         inputs = inputs.cuda()
-        inputs = Variable(inputs, volatile=True)
-        
-        pre_process_time = time.time()
-        print('Expression pre process time: {:.4f}'.format(
-            pre_process_time - start_total))
-        
-        tic = time.time()
-        
-        outputs = self.face_expressionn_model(inputs)
-        
-        print('Expression net forward time: {:.4f}'.format(time.time() - tic))
-        
-        bef_process_time_start = time.time()
-        
-        outputs_avg = outputs.view(ncrops, -1).mean(0)  # avg over crops
-        score = F.softmax(outputs_avg)
-        
-        bef_process_time_end = time.time()
-        
-        print('Expression bef process time: {:.4f}'.format(
-            bef_process_time_end - bef_process_time_start))
-        
-        print(score)
+        with torch.no_grad():
+            # inputs = Variable(inputs, volatile=True)
+
+            pre_process_time = time.time()
+            print('Expression pre process time: {:.4f}'.format(
+                pre_process_time - start_total))
+
+            tic = time.time()
+
+            outputs = self.face_expressionn_model(inputs)
+
+            print('Expression net forward time: {:.4f}'.format(
+                time.time() - tic))
+
+            bef_process_time_start = time.time()
+
+            outputs_avg = outputs.view(ncrops, -1).mean(0)  # avg over crops
+            score = F.softmax(outputs_avg, dim=-1)
+
+            bef_process_time_end = time.time()
+
+            print('Expression bef process time: {:.4f}'.format(
+                bef_process_time_end - bef_process_time_start))
+
+            # print(score)
         return score.cpu().detach().numpy().tolist()
