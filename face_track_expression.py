@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-05-24 10:26:33
+LastEditTime: 2021-05-24 10:54:19
 '''
 from __future__ import print_function
 import torch
@@ -325,8 +325,8 @@ class Face_detect_experssion():
                 Face_info_list.append(Face_info(one_face_img, face_expression))
 
         for one_face in Face_info_list:
-            print('\nID: {},\nexpression list: {},\nboxes: {}'.format(
-                one_face.id, one_face.expression, one_face.bbox[0:4]))
+            print('\nID: {},\nboxes: {},\nexpression list: {}'.format(
+                one_face.id, one_face.bbox[0:4], one_face.expression))
         print('*'*50)
 
         return result_boxes, Face_info_list
