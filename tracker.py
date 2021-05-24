@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 10:09:34
 LastEditors: Leidi
-LastEditTime: 2021-05-24 10:52:22
+LastEditTime: 2021-05-24 10:58:43
 '''
 from deep_sort.utils.parser import get_config
 from deep_sort.deep_sort import DeepSort
@@ -46,46 +46,46 @@ def plot_bboxes(image, bboxes, line_thickness=None):
 
 def update_tracker(target_detector, image):
 
-        _, bboxes = target_detector.detect(image)
-        bbox_xywh = []
-        confs = []
-        bboxes2draw = []
-        outputs = []
-        if len(bboxes):
+    _, bboxes = target_detector.detect(image)
+    bbox_xywh = []
+    confs = []
+    bboxes2draw = []
+    outputs = []
+    if len(bboxes):
 
-            # Adapt detections to deep sort input format
-            for x1, y1, x2, y2, conf in bboxes:
-                
-                obj = [
-                    int((x1+x2)/2), int((y1+y2)/2),
-                    x2-x1, y2-y1
-                ]
-                bbox_xywh.append(obj)
-                confs.append(conf)
+        # Adapt detections to deep sort input format
+        for x1, y1, x2, y2, conf in bboxes:
 
-            xywhs = torch.Tensor(bbox_xywh)
-            confss = torch.Tensor(confs)
+            obj = [
+                int((x1+x2)/2), int((y1+y2)/2),
+                x2-x1, y2-y1
+            ]
+            bbox_xywh.append(obj)
+            confs.append(conf)
 
-            # Pass detections to deepsort
-            outputs = deepsort.update(xywhs, confss, image)
+        xywhs = torch.Tensor(bbox_xywh)
+        confss = torch.Tensor(confs)
 
-            # for value in list(outputs):
-            #     x1,y1,x2,y2,track_id = value
-            #     bboxes2draw.append(
-            #         (x1, y1, x2, y2, '', track_id)
-            #     )
+        # Pass detections to deepsort
+        outputs = deepsort.update(xywhs, confss, image)
 
-        # image = plot_bboxes(image, bboxes2draw)
-        
-        return image, outputs
-    
-        # else:
-        #     return image, outputs
+        # for value in list(outputs):
+        #     x1,y1,x2,y2,track_id = value
+        #     bboxes2draw.append(
+        #         (x1, y1, x2, y2, '', track_id)
+        #     )
 
-        # if len(outputs):
-        #     return image, outputs
-        # else:
-        #     outputs = []
-        #     for one in bboxes:
-        #         outputs.append(list(map(int, one[0:4])))
-        #     return image, outputs
+    # image = plot_bboxes(image, bboxes2draw)
+
+    return image, outputs
+
+    # else:
+    #     return image, outputs
+
+    # if len(outputs):
+    #     return image, outputs
+    # else:
+    #     outputs = []
+    #     for one in bboxes:
+    #         outputs.append(list(map(int, one[0:4])))
+    #     return image, outputs

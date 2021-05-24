@@ -42,7 +42,7 @@ class baseDet(object):
 
         retDict['frame'] = im
         retDict['boxes'] = outputs
-        
+
         return retDict
 
     def init_model(self):

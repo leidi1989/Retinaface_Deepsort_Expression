@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-05-24 10:54:19
+LastEditTime: 2021-05-24 10:58:36
 '''
 from __future__ import print_function
 import torch
@@ -172,7 +172,7 @@ class Face_Detect(baseDet):
         self.model = self.model.to(device)
 
     def preprocess(self, img):
-        
+
         img = letterbox(img, new_shape=self.img_size)[0]
         img = img[:, :, ::-1].transpose(2, 0, 1)
         img = np.ascontiguousarray(img)
@@ -193,7 +193,7 @@ class Face_Detect(baseDet):
         Returns:
             img ([tensor]): [输出图片]
             dets ([list]): [人脸检测框及置信度]
-        """        
+        """
         # 自定义参数
         # TODO
         # img = cv2.resize(img, (640, 480))
@@ -206,7 +206,7 @@ class Face_Detect(baseDet):
         keep_top_k = 750
 
         start_total = time.time()
-        
+
         img = np.float32(img)
         im_height, im_width, _ = img.shape
         scale = torch.Tensor(
@@ -278,7 +278,8 @@ class Face_Detect(baseDet):
         bef_process_time_end = time.time()
         print('Face detect bef process time: {:.4f}'.format(
             bef_process_time_end - bef_process_time_start))
-        print('Face detect Total time: {:.4f}'.format(bef_process_time_end - start_total))
+        print('Face detect Total time: {:.4f}'.format(
+            bef_process_time_end - start_total))
 
         return img, dets
 
@@ -286,6 +287,7 @@ class Face_Detect(baseDet):
 class Face_detect_experssion():
     """[人脸,表情检测]
     """
+
     def __init__(self, face_detect_weight_path, face_expression_weight_path) -> None:
         """[Face_detect_experssion, 初始化函数]
 
@@ -312,7 +314,7 @@ class Face_detect_experssion():
         Face_info_list = []
         if im is None:
             return result_boxes, Face_info_list
-        
+
         # 检测并跟踪,获取检测框位置及ID
         result = self.face_det.feedCap(im)
         result_boxes = result['boxes']
@@ -368,13 +370,13 @@ if __name__ == '__main__':
     name = 'demo'
 
     # _, im = cap.read()
-    
+
     time_star = time.time()
-    
+
     im = cv2.imread(r'/home/leidi/Desktop/OIP.CpJ_yO0mo7S-Vn_kNdL0cgHaHa.jpeg')
     test(im, face_detect_weight_path, face_expression_weight_path)
-    
+
     print('Total time: {:.4f}'.format(time.time() - time_star))
-    
+
     cap.release()
     cv2.destroyAllWindows()

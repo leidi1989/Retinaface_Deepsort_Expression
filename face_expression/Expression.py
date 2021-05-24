@@ -72,7 +72,7 @@ class Face_Expression():
 
             print('Expression bef process time: {:.4f}'.format(
                 bef_process_time_end - bef_process_time_start))
-            
+
             print('Expression total time: {:.4f}'.format(
                 bef_process_time_end - start_total))
             # print(score)
