@@ -4,7 +4,7 @@ Version:
 Author: Leidi
 Date: 2021-03-06 11:18:41
 LastEditors: Leidi
-LastEditTime: 2021-04-16 11:46:33
+LastEditTime: 2021-05-21 11:28:45
 '''
 from __future__ import print_function
 import torch
@@ -304,7 +304,7 @@ class Face_detect_experssion():
 
         Returns:
             result_boxes ([list]): [人脸检测框,左上点和右下点坐标及ID]
-            Face_info_list ([list]): [表情置信度列表]
+            Face_info_list ([list]): [人脸信息表情置信度字典列表]
         """
         print('*'*50)
         result_boxes = {}
@@ -339,7 +339,7 @@ def test(im, face_detect_weight_path, face_expression_weight_path):
         face_detect_weight_path, face_expression_weight_path)
 
     while True:
-        _, im = cap.read()
+        # _, im = cap.read()
         if 0 == len(im):
             break
         im = cv2.resize(im, (640, 480))
@@ -368,10 +368,11 @@ if __name__ == '__main__':
     cap = cv2.VideoCapture(0)
     name = 'demo'
 
-    _, im = cap.read()
+    # _, im = cap.read()
     
     time_star = time.time()
     
+    im = cv2.imread(r'/home/leidi/Desktop/OIP.CpJ_yO0mo7S-Vn_kNdL0cgHaHa.jpeg')
     test(im, face_detect_weight_path, face_expression_weight_path)
     
     print('Total time: {:.4f}'.format(time.time() - time_star))
